@@ -1,8 +1,138 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Test</title>
+    <title>Tackle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF8">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <header>
+      <img alt="Some tackle" width=100 src="tackle.png"></img>
+      <h1><a href="#">Tackle</a></h1>
+      <nav>
+        <ul>
+          <li><a href="#install">Install</a></li>
+          <li><a href="#configure">Configure</a></li>
+          <li><a href="#use">Use</a></li>
+          <li><a href="#contribute">Contribute</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section id="intro">
+        <p>
+          Tackle is a package manger for the
+          <a href="https://www.tcl.tk">Tcl</a> programming language.
+        </p>
+        <code class="shell-example">
+$ <em>tackle add tutstack</em>
+Installed tutstack from https://api.github.com/repos/tacklepkg/tutstack/tarball/v1.0.0 to
+/home/username/.local/share/tackle/tacklebox/tacklepkg-tutstack-9a0f89d.
+$ <em>tackle ls</em>
+tutstack
+$ <em>tackle rm tutstack</em>
+Removed tutstack.
+        </code>
+        <p>
+          Tackle is designed to be simple, flexible, and fast—just like Tcl.
+          The goal is to help Tclers share and collaborate.
+        </p>
+      </section>
+      <section id="install">
+        <h2>Install</h2>
+        <p>
+          Download the 
+          <a href="https://github.com/tacklepkg/tackle/releases">
+          latest release binary
+          </a>
+          for your operating system and
+          architecture, then place that in your <code>$PATH</code>. For
+          modern Linux distributions a good place is 
+          <code>~/.local/bin</code>.
+        </p>
+      </section>
+      <section id="configure">
+        <h2>Configure</h2>
+        <p>
+          Tackle does not require any configuration to manage packages,
+          but Tcl will not automatically source those packages unless
+          the tacklebox is added to the environment variable
+          <code>$TCLLIBPATH</code>.
+        </p>
+        <p>
+          For the Fish shell run this command:
+        </p>
+        <code class="shell-example">
+$ <em>set -Ux TCLLIBPATH $TCLLIBPATH ~/.local/share/tackle/tacklebox</em>
+        </code>
+        <p>
+          For Bash edit your <code>~/.profile</code>:
+        </p>
+        <code class="shell-example">
+<em>TCLLIBPATH=$TCLLIBPATH:~/.local/share/tackle/tacklebox</em>
+        </code>
+        <p>
+            Tackle installs packages from a central package
+            repository by default, but can install any Tcl package
+            available as a tarball over HTTP: it is a fundamentally
+            decentralized system.
+        </p>
+      </section>
+      <section id="use">
+        <h2>Use</h2>
+        <p>
+          Tackle tracks what packages should be installed in
+          <code>~/.config/tackle/packages.tackle</code>.
+          This file can be edited manually, and is automatically 
+          modfied whenever packages are added or removed.
+        </p>
+        <p>
+          As demonstrated above, Tackle has a few different commands:
+          <ul>
+            <li>
+              <p>
+                The <code>add</code> command takes the name and optionally
+                the URL of a package as arguments. If no URL is given it
+                looks for the name of the package in the official repositories.
+              </p>
+            </li>
+            <li>
+              <p>
+                The <code>rm</code> command takes any number of package names
+                and deletes them all from the system.
+              </p>
+            </li>
+            <li>
+              <p>
+                The <code>ls</code> command optionally takes a globbing
+                pattern and lists installed packages matching that pattern.
+                Without a pattern argument is lists all installed files.
+              </p>
+            </li>
+            <li>
+              <p>
+                The <code>sync</code> command takes no arguments and
+                adds or removes packages from the tacklebox as necessary
+                given what is specified in the <code>packages.tackle</code>
+                file.
+              </p>
+            </li>
+          </ul>
+          If no command is specified, Tackle defaults to <code>sync</code>.
+        </p>
+      </section>
+      <section id="contribute">
+        <h2>Contribute</h2>
+        <p>
+          Tackle is free software and released under the 0BSD license.
+          Development takes place in our
+          <a href="https://github.com/tacklepkg">GitHub organization</a>
+          where you can fork the project, report bugs, submit packages,
+          add new features, etc. The Tackle team welcomes you to join us,
+          and wishes you happy hacking.
+        </p>
+      </section>
+    </main>
   </body>
 </html>
