@@ -47,7 +47,6 @@ body {
 header {
   bottom:   0;
   left:     0;
-  overflow: hidden;
   padding:  1ex 1em;
   position: fixed;
   top:      0;
@@ -57,14 +56,14 @@ main {
   background:  var(--bg_h);
   border:      1px solid var(--bg2);
   margin-left: 10em;
-  overflow:    hidden;
   padding:     5ex 1em;
 }
 
 h1, h2, h3, h4, h5, h6 {
+  color:       maroon;
   font-size:   1.3em;
   font-weight: normal;
-  margin:      5ex auto 3ex auto;
+  margin:      4ex auto 2ex;
 }
 
 h1 {
@@ -76,7 +75,7 @@ h4, h5, h6 {
 }
 
 a {
-  color:           var(--blue);
+  color: var(--blue);
 }
 
 a:hover {
@@ -120,7 +119,7 @@ code {
 
 p {
   font-family: var(--serif);
-  max-width: 30em;
+  max-width:   30em;
 }
 
 .shell-example {
@@ -128,9 +127,11 @@ p {
   border:      1px solid var(--bg2);
   color:       var(--fg4);
   display:     inline-block;
+  font-size:   1rem;
   overflow:    auto;
   padding:     0.25ex 1em;
   white-space: pre;
+  max-width:   95%;
 }
 
 .shell-example em {
@@ -139,18 +140,17 @@ p {
 }
 
 @media screen and (max-width: 850px) {
-
   body {
-    padding:    1ex 0;
+    padding: 1ex 0;
   }
 
   header {
-    position: relative;
+    position:   relative;
     text-align: center;
   }
 
   header h1 {
-    margin: 0 auto;
+    margin:     0 auto;
     text-align: center;
   }
 
@@ -164,13 +164,12 @@ p {
   }
 
   main {
-    border-left: none;
+    border-left:  none;
     border-right: none;
-    margin: 0;
+    margin:       0;
   }
 
   h1 {
     text-align: left;
   }
-
 }
