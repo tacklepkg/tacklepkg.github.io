@@ -95,6 +95,14 @@ h1 a:hover {
   text-decoration: underline;
 }
 
+header a {
+  text-decoration: none;
+}
+
+header a:hover {
+  text-decoration: underline;
+}
+
 nav ul {
   margin: 0;
   padding: 0;
@@ -106,7 +114,7 @@ nav li {
 }
 
 nav li:before {
-  color:        var(--blue);
+  color:        var(--bg4);
   content:      "•";
   margin-right: 0.5em;
 }
