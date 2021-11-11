@@ -29,7 +29,7 @@
         <code class="shell-example">
 $ <em>tackle add tutstack</em>
 Installed tutstack from https://api.github.com/repos/tacklepkg/tutstack/tarball/v1.0.0 to
-/home/username/.local/share/tackle/tacklebox/tacklepkg-tutstack-9a0f89d.
+/home/username/.local/share/tackle/packages/tacklepkg-tutstack-9a0f89d.
 $ <em>tackle ls</em>
 tutstack
 $ <em>tackle rm tutstack</em>
@@ -37,7 +37,11 @@ Removed tutstack.
         </code>
         <p>
           Tackle is designed to be simple, flexible, and fast—just like Tcl.
-          The goal is to help Tclers share and collaborate.
+          Both <code>pkgIndex.tcl</code> defined packages and <code>tm</code>
+          modules are supported.
+        </p>
+        <p>
+          The goal of Tackle is to help Tclers share and collaborate.
         </p>
       </section>
       <section id="install">
@@ -58,69 +62,87 @@ Removed tutstack.
         <p>
           Tackle does not require any configuration to manage packages,
           but Tcl will not automatically source those packages unless
-          the tacklebox is added to the environment variable
-          <code>$TCLLIBPATH</code>.
+          the install paths are added to the environment variable
+          <code>$TCLLIBPATH</code> and <code>$TCLX_Y_TM_PATH</code>.
         </p>
         <p>
           For the Fish shell run this command:
         </p>
         <code class="shell-example">
-$ <em>set -Ux TCLLIBPATH $TCLLIBPATH ~/.local/share/tackle/tacklebox</em>
+$ <em>set -Ux TCLLIBPATH $TCLLIBPATH ~/.local/share/tackle/packages</em>
+$ <em>set -Ux TCL8_6_TM_PATH $TCL8_6_TM_PATH ~/.local/share/tackle/modules</em>
         </code>
         <p>
           For Bash edit your <code>~/.profile</code>:
         </p>
         <code class="shell-example">
-<em>TCLLIBPATH=$TCLLIBPATH:~/.local/share/tackle/tacklebox</em>
+<em>TCLLIBPATH=$TCLLIBPATH:~/.local/share/tackle/packages</em>
+<em>TCL8_6_TM_PATH=$TCL8_6_TM_PATH:~/.local/share/tackle/modules</em>
         </code>
         <p>
-            Tackle installs packages from a central package
-            repository by default, but can install any Tcl package
-            available as a tarball over HTTP: it is a fundamentally
-            decentralized system.
+          Tackle installs packages from a central repository by default,
+          but can install any Tcl package available as a tarball over HTTP:
+          it is a fundamentally decentralized system.
         </p>
       </section>
       <section id="use">
         <h2>Use</h2>
         <p>
-          Tackle tracks what packages should be installed in
-          <code>~/.config/tackle/packages.tackle</code>.
-          This file can be edited manually, and is automatically 
-          modfied whenever packages are added or removed.
+          Tackle tracks what should be installed in
+          <code>~/.config/tackle/packages.tackle</code> and
+          <code>~/.config/tackle/modules.tackle</code>.
+          These files can be edited manually, and are automatically 
+          modfied whenever packages or modules are added or removed.
         </p>
         <p>
           As demonstrated above, Tackle has a few different commands:
-          <ul>
-            <li>
-              <p>
-                The <code>add</code> command takes the name and optionally
-                the URL of a package as arguments. If no URL is given it
-                looks for the name of the package in the official repositories.
-              </p>
-            </li>
-            <li>
-              <p>
-                The <code>rm</code> command takes any number of package names
-                and deletes them all from the system.
-              </p>
-            </li>
-            <li>
-              <p>
-                The <code>ls</code> command optionally takes a globbing
-                pattern and lists installed packages matching that pattern.
-                Without a pattern argument is lists all installed files.
-              </p>
-            </li>
-            <li>
-              <p>
-                The <code>sync</code> command takes no arguments and
-                adds or removes packages from the tacklebox as necessary
-                given what is specified in the <code>packages.tackle</code>
-                file.
-              </p>
-            </li>
-          </ul>
-          If no command is specified, Tackle defaults to <code>sync</code>.
+        </p>
+        <ul>
+          <li>
+            <p>
+              The <code>add</code> command takes the name and optionally
+              the URL of a package as arguments. If no URL is given it
+              looks for the name of the package in the official repositories.
+            </p>
+          </li>
+          <li>
+            <p>
+              The <code>rm</code> command takes any number of package names
+              and deletes them all from the system.
+            </p>
+          </li>
+          <li>
+            <p>
+              The <code>ls</code> command optionally takes a globbing
+              pattern and lists installed packages matching that pattern.
+              Without a pattern argument is lists all installed files.
+            </p>
+          </li>
+          <li>
+            <p>
+              The <code>sync</code> command takes no arguments and
+              adds or removes packages as necessary given what is
+              specified in the <code>.tackle</code> file.
+            </p>
+          </li>
+        </ul>
+        <p>
+          All of the package commands and module commands work the same way,
+          except for <code>add</code>:
+        </p>
+        <ul>
+          <li>
+            <code>$ tackle package add $name $url</code>
+            expects a URL pointing to a tarball.
+          </li>
+          <li>
+            <code>$ tackle module&nbsp; add $name $url</code>
+            expects a URL pointing to a <code>.tm</code> file.
+          </li>
+        </ul>
+        <p>
+          If no command is specified, Tackle runs <code>sync</code> for both
+          packages and modules.
         </p>
       </section>
       <section id="contribute">
