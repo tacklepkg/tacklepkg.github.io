@@ -17,6 +17,7 @@
           <li><a href="#configure">Configure</a></li>
           <li><a href="#use">Use</a></li>
           <li><a href="#contribute">Contribute</a></li>
+          <li><a href="https://www.tacklepkg.com/tackle">Documentation</a></li>
         </ul>
       </nav>
     </header>
@@ -27,9 +28,14 @@
           <a href="https://www.tcl.tk">Tcl</a> programming language.
         </p>
         <code class="shell-example">
+$ <em>tackle search tut</em>
+tutstack v1.0.0
+  An example Tcl package that implements a simple data structure
+  Package URL: https://github.com/tacklepkg/packages/raw/master/tutstack/tutstack.tar.gz
 $ <em>tackle add tutstack</em>
-Installed tutstack from https://raw.githubusercontent.com/tacklepkg/packages/
-master/tutstack/tutstack.tar.gz to ~/.local/share/tackle/packages/tutstack.tcl.
+Added package tutstack v1.0.0
+from https://github.com/tacklepkg/packages/raw/master/tutstack/tutstack.tar.gz
+to /home/username/.local/share/tackle/tutstack
 $ <em>tackle ls</em>
 tutstack
 $ <em>tackle rm tutstack</em>
@@ -53,8 +59,13 @@ Removed tutstack.
           </a>
           and put <code>tackle</code> in your <code>$PATH</code>. For
           modern Linux distributions a good place is 
-          <code>~/.local/bin/tackle</code>. Tackle requires that you have Tcl
-          already installed.
+          <code>~/.local/bin/tackle</code>. Alternatively, clone the
+          repository and <code>$ make install</code>.
+        </p>
+        <p>
+          Tackle requires that you have Tcl version 8.6 or greater already
+          installed. Some packages may require Make and similar standard
+          build tools.
         </p>
       </section>
       <section id="configure">
@@ -62,88 +73,65 @@ Removed tutstack.
         <p>
           Tackle does not require any configuration to manage packages,
           but Tcl will not automatically source those packages unless
-          the install paths are added to the environment variable
+          the Tackle install path is added to the environment variables
           <code>$TCLLIBPATH</code> and <code>$TCLX_Y_TM_PATH</code>.
         </p>
         <p>
-          For the Fish shell run this command:
+          So assuming Tcl version 8.6, for the Fish shell run this command:
         </p>
         <code class="shell-example">
-$ <em>set -Ux TCLLIBPATH $TCLLIBPATH ~/.local/share/tackle/packages</em>
-$ <em>set -Ux TCL8_6_TM_PATH $TCL8_6_TM_PATH ~/.local/share/tackle/modules</em>
+$ <em>set -Ux TCLLIBPATH $TCLLIBPATH ~/.local/share/tackle</em>
+$ <em>set -Ux TCL8_6_TM_PATH $TCL8_6_TM_PATH ~/.local/share/tackle</em>
         </code>
         <p>
           For Bash edit your <code>~/.profile</code>:
         </p>
         <code class="shell-example">
-<em>TCLLIBPATH=$TCLLIBPATH:~/.local/share/tackle/packages</em>
-<em>TCL8_6_TM_PATH=$TCL8_6_TM_PATH:~/.local/share/tackle/modules</em>
+<em>TCLLIBPATH=$TCLLIBPATH:~/.local/share/tackle</em>
+<em>TCL8_6_TM_PATH=$TCL8_6_TM_PATH:~/.local/share/tackle</em>
         </code>
-        <p>
-          Tackle installs packages from a central repository by default,
-          but can install any Tcl package available as a tarball over HTTP:
-          it is a fundamentally decentralized system.
-        </p>
       </section>
       <section id="use">
         <h2>Use</h2>
         <p>
           Tackle tracks what should be installed in
-          <code>~/.config/tackle/packages.tackle</code> and
-          <code>~/.config/tackle/modules.tackle</code>.
-          These files can be edited manually, and are automatically 
-          modfied whenever packages or modules are added or removed.
+          <code>~/.config/tackle/tracker.tackle</code>.
+          This file is automatically modfied whenever packages or modules are
+          added or removed.
         </p>
         <p>
           As demonstrated above, Tackle has a few different commands:
         </p>
-        <ul>
-          <li>
-            <p>
-              The <code>add</code> command takes the name and optionally
-              the URL of a package as arguments. If no URL is given it
-              looks for the name of the package in the official repositories.
-            </p>
-          </li>
-          <li>
-            <p>
-              The <code>rm</code> command takes any number of package names
-              and deletes them all from the system.
-            </p>
-          </li>
-          <li>
-            <p>
-              The <code>ls</code> command optionally takes a globbing
-              pattern and lists installed packages matching that pattern.
-              Without a pattern argument is lists all installed files.
-            </p>
-          </li>
-          <li>
-            <p>
-              The <code>sync</code> command takes no arguments and
-              adds or removes packages as necessary given what is
-              specified in the <code>.tackle</code> file.
-            </p>
-          </li>
-        </ul>
-        <p>
-          All of the package commands and module commands work the same way,
-          except for <code>add</code>:
-        </p>
-        <ul>
-          <li>
-            <code>$ tackle package add $name $url</code>
-            expects a URL pointing to a tarball.
-          </li>
-          <li>
-            <code>$ tackle module&nbsp; add $name $url</code>
-            expects a URL pointing to a <code>.tm</code> file.
-          </li>
-        </ul>
-        <p>
-          If no command is specified, Tackle runs <code>sync</code> for both
-          packages and modules.
-        </p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>$ tackle package search $query</code></td>
+              <td>Search for available packages by <code>$query</code></td>
+            </tr>
+            <tr>
+              <td><code>$ tackle package add $names</code></td>
+              <td>Install packages by <code>$names</code></td>
+            </tr>
+            <tr>
+              <td><code>$ tackle package rm  $names</code></td>
+              <td>Uninstall packages by <code>$names</code></td>
+            </tr>
+            <tr>
+              <td><code>$ tackle package ls</code></td>
+              <td>List installed packages</td>
+            </tr>
+            <tr>
+              <td><code>$ tackle package show $name</code></td>
+              <td>Detail an installed package by <code>$name</code></td>
+            </tr>
+          </tbody>
+        </table>
       </section>
       <section id="contribute">
         <h2>Contribute</h2>

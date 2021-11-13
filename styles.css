@@ -52,6 +52,11 @@ header {
   top:      0;
 }
 
+header img {
+  display: block;
+  margin: 0 auto;
+}
+
 main {
   background:  var(--bg_h);
   border:      1px solid var(--bg2);
@@ -129,6 +134,25 @@ code {
 p {
   font-family: var(--serif);
   max-width:   31em;
+}
+
+table {
+  border-collapse: collapse;
+  margin:          3ex 0;
+}
+
+tbody {
+  background: var(--bg_s);
+  border:  1px solid var(--bg2);
+}
+
+th {
+  font-weight: normal;
+}
+
+td {
+  border:  1px dotted var(--bg4);
+  padding: 0.5ex 1em;
 }
 
 .shell-example {
